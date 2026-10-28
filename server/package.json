@@ -1,0 +1,11 @@
+{
+  "name": "seintje",
+  "version": "1.0.0",
+  "description": "Webhooks en API-berichten als pushmelding op je iPhone",
+  "private": true,
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node dev.mjs",
+    "test": "node --no-warnings tests/api.test.mjs"
+  }
+}
