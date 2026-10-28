@@ -9,7 +9,7 @@ function apnsConfig() {
   const key = (process.env.APNS_KEY || "").replace(/\\n/g, "\n");
   const keyId = process.env.APNS_KEY_ID;
   const teamId = process.env.APNS_TEAM_ID;
-  const topic = process.env.APNS_TOPIC || "nl.deskna.seintje";
+  const topic = process.env.APNS_TOPIC || "nl.danieltjaarda.seintje";
   return key && keyId && teamId ? { key, keyId, teamId, topic } : null;
 }
 

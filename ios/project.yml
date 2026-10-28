@@ -1,6 +1,6 @@
 name: Seintje
 options:
-  bundleIdPrefix: nl.deskna
+  bundleIdPrefix: nl.danieltjaarda
   deploymentTarget:
     iOS: "18.0"
   xcodeVersion: "26.2"
@@ -10,7 +10,7 @@ settings:
     SWIFT_VERSION: "6.0"
     SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
     SWIFT_APPROACHABLE_CONCURRENCY: YES
-    DEVELOPMENT_TEAM: N2U5A8NF76
+    DEVELOPMENT_TEAM: 254RH96NK7
     CODE_SIGN_STYLE: Automatic
 targets:
   Seintje:
@@ -21,7 +21,7 @@ targets:
         type: syncedFolder
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: nl.deskna.seintje
+        PRODUCT_BUNDLE_IDENTIFIER: nl.danieltjaarda.seintje
         PRODUCT_NAME: Seintje
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: "1"
