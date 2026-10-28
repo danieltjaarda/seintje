@@ -39,7 +39,9 @@ await test("overzicht, nieuwste eerst", async () => {
   assert.equal(lijst[1].prioriteit, "hoog");
   assert.equal(lijst[3].bron, "Shop");
   assert.equal(lijst[3].url, "https://x.nl/1");
-  assert.equal(lijst[2].tekst, "Back-up klaar");
+  assert.equal(lijst[2].titel, "Back-up klaar");
+  const curlD = ontleed({ ruw: "Nieuwe afspraak: morgen 10:30", contentType: "application/x-www-form-urlencoded" });
+  assert.deepEqual([curlD.titel, curlD.tekst], ["Nieuwe afspraak: morgen 10:30", ""]);
 });
 await test("gelezen en verwijderen", async () => {
   await post("/api/meldingen", JSON.stringify({ actie: "gelezen", ids: [lijst[0].id] }), app);

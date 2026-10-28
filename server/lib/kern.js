@@ -153,7 +153,8 @@ function ontleed({ ruw, contentType = "", headers = {}, query = new URLSearchPar
   if (ruw) {
     if (ct.includes("json") || /^\s*[{[]/.test(ruw)) {
       try { data = JSON.parse(ruw); } catch { data = null; }
-    } else if (ct.includes("x-www-form-urlencoded")) {
+    } else if (ct.includes("x-www-form-urlencoded") && ruw.includes("=")) {
+      // curl -d "tekst" stuurt ook dit type mee; zonder "=" is het gewoon tekst
       data = Object.fromEntries(new URLSearchParams(ruw));
       // sommige diensten (Slack-achtig) sturen JSON in een "payload"-veld
       if (typeof data.payload === "string") try { data = JSON.parse(data.payload); } catch {}
@@ -171,10 +172,12 @@ function ontleed({ ruw, contentType = "", headers = {}, query = new URLSearchPar
   const bron = q.bron || q.source || q.app || pak(obj, ["bron", "source", "app"]) || bronUitHeaders(headers) || "Webhook";
   const prioriteit = /^(hoog|high|urgent|1|true)$/i.test(q.prioriteit || q.priority || obj.prioriteit || obj.priority || "") ? "hoog" : "normaal";
 
+  // zonder titel wordt een korte tekst de titel, anders de bron
+  const tekstAlsTitel = !titel && !data && tekst && tekst.length <= 120;
   return {
     bron: kort(bron, 40),
-    titel: kort(titel || (tekst ? bron : "Nieuwe melding"), 120),
-    tekst: kort(tekst, 1000),
+    titel: kort(titel || (tekstAlsTitel ? tekst : tekst ? bron : "Nieuwe melding"), 120),
+    tekst: tekstAlsTitel ? "" : kort(tekst, 1000),
     url: q.url || pak(obj, URL_VELDEN) || speciaal?.url || "",
     prioriteit,
     ruw: ruw ? ruw.slice(0, MAX_RUW) : Object.keys(q).length ? JSON.stringify(q) : "",
